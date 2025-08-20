@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:api_exp_395/quote_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<dynamic> mQuotes = [];
+  List<QuoteModel> mQuotes = [];
 
   @override
   void initState() {
@@ -29,7 +30,9 @@ class _HomePageState extends State<HomePage> {
 
     dynamic mData = jsonDecode(response.body);
 
-    mQuotes = mData["quotes"];
+    QuoteDataModel dataModel = QuoteDataModel.fromJson(mData);
+
+    mQuotes = dataModel.quotes;
     setState(() {
 
     });
@@ -46,8 +49,8 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (_, index){
         return Card(
           child: ListTile(
-            title: Text(mQuotes[index]["quote"]),
-            subtitle: Text(mQuotes[index]["author"]),
+            title: Text(mQuotes[index].quote),
+            subtitle: Text(mQuotes[index].author),
           ),
         );
       }) : Center(
