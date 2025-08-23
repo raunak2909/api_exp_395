@@ -1,8 +1,16 @@
-import 'package:api_exp_395/home_page.dart';
+import 'package:api_exp_395/data/remote/helper/api_helper.dart';
+import 'package:api_exp_395/ui/home/bloc/recipe_bloc.dart';
+import 'package:api_exp_395/ui/home/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => RecipeBloc(apiHelper: ApiHelper()),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +22,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomePage()
+      home: HomePage(),
     );
   }
 }
-
